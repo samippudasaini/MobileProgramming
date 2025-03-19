@@ -2,11 +2,14 @@ package com.example.myapplicationspinner;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,8 +47,22 @@ public class MainActivity extends AppCompatActivity {
 //        {
 //            spProgram.append;
 //        }
-        spProgram.setOnItemSelectedListener(null);
-        spProgram.setSelection(0);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,programs);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spProgram.setAdapter(adapter);
+
+//        spProgram.setOnItemSelectedListener(null);
+//        spProgram.setSelection(0);
+        spProgram.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "Selected: " + programs[position], Toast.LENGTH_SHORT).show();            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
